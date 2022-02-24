@@ -1,10 +1,9 @@
-from pickle import FALSE
 import sys
 
 inp_file = open(sys.argv[1], 'r')
 
 class Contributer:
-    def _init_(self, name, skills_level: dict):
+    def __init__(self, name, skills_level: dict):
         self.name = name
         self.skills_level = skills_level
         self.available = 0
@@ -15,7 +14,7 @@ class Contributer:
 
 
 class Project:
-    def _init_(self, name, skills_level: dict, time:int, score:int, best_before:int, no_of_contributers:int):
+    def __init__(self, name, skills_level: dict, time:int, score:int, best_before:int, no_of_contributers:int):
         self.name = name
         self.skills_level = skills_level
         self.time = time
@@ -23,8 +22,8 @@ class Project:
         self.no_of_contributers = no_of_contributers
     
 
-no_of_contributers = int(inp_file.readline())
-no_of_projects = int(inp_file.readline())
+no_of_contributers, no_of_projects = map(int, inp_file.readline().split())
+
 contributers = []
 for i in range(no_of_contributers):
     contributer_line = inp_file.readline().split()
@@ -50,7 +49,7 @@ for i in range(no_of_projects):
         project_skill_name = project_skill[0]
         project_skill_level = int(project_skill[1])
         skills_level[project_skill_name] = project_skill_level
-    project = Project(project_name, skills_level, int(project_line[2]), int(project_line[3]), int(project_line[4]),int(project_line[5]))
+    project = Project(project_name, skills_level, int(project_line[1]), int(project_line[2]), int(project_line[3]),int(project_line[4]))
     #(name , skill , duration{time} , score , best_before , no. of contributors)
     projects.append(project)
 
