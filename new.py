@@ -43,7 +43,7 @@ for i in range(no_of_projects):
     project_line = inp_file.readline().split()
     project_name = project_line[0]
     skills_level = {} #{skill,level}
-    project_skills = int(project_line[1])
+    project_skills = int(project_line[-1])
     for j in range(project_skills):
         project_skill = inp_file.readline().split()
         project_skill_name = project_skill[0]
@@ -61,10 +61,10 @@ min_skill_required = {}
 for project in projects:
         for skill in project.skills_level:
             if skill not in min_skill_required:
-                min_skill_required[skill] = project.skills_level[skill,project]
+                min_skill_required[skill] = [project.skills_level[skill],project,skill]
             else:
-                if min_skill_required[skill] > project.skills_level[skill][0]:
-                    min_skill_required[skill] = [project.skills_level[skill],project]
+                if min_skill_required[skill][0] > project.skills_level[skill]:
+                    min_skill_required[skill] = [project.skills_level[skill],project,skill]
         # project order by skill
         project_order_by_skill = []
         for skill in min_skill_required:
@@ -82,7 +82,7 @@ while not stop:
             if contributer.available == 0:
                 if min_contributer == None:
                     min_contributer = contributer
-                if min_contributer.skills_level[project[1]] > contributer.skills_level[project[1]]:
+                if project[2] in min_contributer.skills_level and project[2] in  contributer.skills_level and min_contributer.skills_level[project[2]] > contributer.skills_level[project[2]]:
                     min_contributer = contributer
         
         if min_contributer:
@@ -90,11 +90,12 @@ while not stop:
             contri_to_project = [min_contributer]
             for skill in project[1].skills_level:
                 if is_valid_project:
+                    found = False
                     for con in contributers:
-                        found = False
                         if con not in contri_to_project:
                             if con.skills_level[skill] >= project[1].skills_level[skill]:
                                 contri_to_project.append(con)
+                                found = True
                         if not found:
                             is_valid_project = False
                             break
