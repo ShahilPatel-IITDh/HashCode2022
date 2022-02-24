@@ -8,7 +8,7 @@ class Contributer:
         self.skills_level = skills_level
 
 class Project:
-    def __init__(self, name, skills_level: dict,time:int, best_before:int, no_of_contributers:int):
+    def __init__(self, name, skills_level: dict, time:int, score:int, best_before:int, no_of_contributers:int):
         self.name = name
         self.skills_level = skills_level
         self.time = time
@@ -36,12 +36,13 @@ projects = []
 for i in range(no_of_projects):
     project_line = inp_file.readline().split()
     project_name = project_line[0]
-    skills_level = {}
+    skills_level = {} #{skill,level}
     project_skills = int(project_line[1])
     for j in range(project_skills):
         project_skill = inp_file.readline().split()
         project_skill_name = project_skill[0]
         project_skill_level = int(project_skill[1])
         skills_level[project_skill_name] = project_skill_level
-    project = Project(project_name, skills_level, int(project_line[2]), int(project_line[3]), int(project_line[4]))
-    projects.append(project) 
+    project = Project(project_name, skills_level, int(project_line[2]), int(project_line[3]), int(project_line[4]),int(project_line[5]))
+    #(name , skill , duration{time} , score , best_before , no. of contributors)
+    projects.append(project)
