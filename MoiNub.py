@@ -12,6 +12,7 @@ class Project:
         self.name = name
         self.skills_level = skills_level
         self.time = time
+        self.score = score
         self.best_before = best_before
         self.no_of_contributers = no_of_contributers
     
